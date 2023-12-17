@@ -34,11 +34,6 @@ feedbackForm.addEventListener('input', saveFormState);
 feedbackForm.addEventListener('submit', function (event) {
     event.preventDefault();
 
-    // очищення 
-    localStorage.removeItem(feedbackFormState);
-    feedbackForm.reset();
-
-    // вивід у консоль
     const emailInput = feedbackForm.querySelector('[name="email"]');
     const messageTextarea = feedbackForm.querySelector('[name="message"]');
     
@@ -47,5 +42,12 @@ feedbackForm.addEventListener('submit', function (event) {
     message: messageTextarea.value,
     };
 
-    console.log(formValues);
+    // перевірка, вивід у консоль та очищення
+    if (formValues.email.trim() !== '' && formValues.message.trim() !== '') {
+        console.log(formValues);
+        localStorage.removeItem(feedbackFormState);
+        feedbackForm.reset();
+    } else {
+        alert('Будь ласка, заповніть обидва поля');
+    }
 });
